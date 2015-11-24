@@ -1,0 +1,23 @@
+{
+  "name": "rockband-spotify-playlist-checker",
+  "version": "0.0.1",
+  "description": "Rock Band Spotify Playlists Checker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tombatossals/rockband-spotify-playlist-checker.gi.git"
+  },
+  "keywords": [
+    "node",
+    "spotify"
+  ],
+  "author": "David Rubert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tombatossals/rockband-spotify-playlist-checker.gi/issues"
+  },
+  "homepage": "https://github.com/tombatossals/rockband-spotify-playlist-checker.gi#readme"
+}
