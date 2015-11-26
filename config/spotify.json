@@ -1,0 +1,6 @@
+{
+  "apiURL": "https://accounts.spotify.com/api/token",
+  "clientId": "e232969c851e4ce291f3956b8544ac22",
+  "clientSecret": "aac252f97b1a480b830ffe1b9d46673b",
+  "redirectUri": ""
+}

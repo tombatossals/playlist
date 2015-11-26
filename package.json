@@ -4,7 +4,7 @@
   "description": "Rock Band Spotify Playlists Checker",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "tsc index.ts; node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/tombatossals/rockband-spotify-playlist-checker.gi#readme",
   "dependencies": {
+    "axios": "^0.7.0",
     "node-spotify": "^0.7.1",
-    "spotify-web-api-node": "^2.2.0"
+    "spotify-web-api-node": "^2.2.0",
+    "typescript": "^1.6.2"
   },
   "engine": "node 0.12"
 }
