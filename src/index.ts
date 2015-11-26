@@ -1,11 +1,11 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-import RockBandPlayList = require('RockBandPlayList');
+import { PlayList } from './rockband';
 
-var playlist:RockBandPlayList = new RockBandPlayList('DLC2007');
+var playlist:PlayList = new PlayList('DLC2007');
 
 
-playlist.getSongs().then((songs) => {
+playlist.getSongs('6wOqqTrN3ZzdiyoEDMtfTW').then((songs) => {
 	console.log(songs);
 });
 
