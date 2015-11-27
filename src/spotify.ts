@@ -3,7 +3,8 @@
 
 var axios:axios.AxiosStatic = require("axios");
 var SpotifyWebApi = require('spotify-web-api-node');
-import { Track } from 'track';
+import * as track from './track';
+
 
 export class SpotifyConfig {
 	apiURL: string;
