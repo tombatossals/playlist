@@ -1,13 +1,26 @@
 /// <reference path="../typings/tsd.d.ts" />
 /// <reference path="../spotify-web-api-node.d.ts" />
 
-var jsonConfig:any = require('../config');
-import { Track } from 'track';
-import { Spotify, SpotifyConfig } from 'spotify';
+var jsonConfig:any = require('../config/spotify');
+import * as spotify from './spotify';
+
+export class Track {
+	position: number;
+	name: string;
+	artist: string;
+	album: string;
+	
+	constructor(position:number, name:string, artist:string, album:string) {
+		this.position = position;
+		this.name = name;
+		this.artist = artist;
+		this.album = album;
+	}
+}
 
 export class PlayList {
-	config:SpotifyConfig = new SpotifyConfig(jsonConfig);
-	spotify:Spotify = new Spotify(jsonConfig);
+	config:spotify.SpotifyConfig = new spotify.SpotifyConfig(jsonConfig);
+	spotify:spotify.Spotify = new spotify.Spotify(jsonConfig);
 	id:string;
 	
 	constructor(id:string) {
@@ -16,7 +29,7 @@ export class PlayList {
 	
 	public getSongs(id:string):Promise<any[]> {
 		return new Promise((resolve, reject) => {
-			this.spotify.getPlayList(this.id).then((data:any) => {
+			this.spotify.getPlayList(id).then((data:any) => {
 				var tracks:Track[] = [];
 				var dataTracks:any = data.body.tracks.items;
 				

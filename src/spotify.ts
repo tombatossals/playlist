@@ -3,16 +3,18 @@
 
 var axios:axios.AxiosStatic = require("axios");
 var SpotifyWebApi = require('spotify-web-api-node');
-import * as track from './track';
+import * as rockband from './rockband';
 
+class SpotifyLoginAuth {
+	clientID: string;
+	clientSecret: string;
+	redirectURI: string;
+}
 
 export class SpotifyConfig {
 	apiURL: string;
-	auth: {
-		clientID: string;
-		clientSecret: string;
-		redirectURI: string;
-	}
+	auth:SpotifyLoginAuth = new SpotifyLoginAuth();
+	token:string;
 	
 	constructor(jsonConfig:any) {
 		this.auth.clientID = jsonConfig.auth.clientID;
@@ -52,18 +54,27 @@ export class Spotify {
 					'Content-Type':'application/x-www-form-urlencoded' 
 				}
 			}).then(response => {
-				var token = response.data['access_token'];
-				this.spotifyApi.setAccessToken(token);
-				resolve();
+				this.config.token = response.data['access_token'];
+				this.spotifyApi.setAccessToken(this.config.token);
+				resolve(this.config.token);
 			}).catch(response => {
 				reject(response);
 			});
 		});
 	}
 	
-	public getPlayList(id: string):Promise<Track[]> {
+	public getPlayList(id: string):Promise<rockband.Track[]> {
 		return new Promise((resolve, reject) => {
-			
+			if (!this.config.token) {
+				this.auth().then(() => {
+					this.spotifyApi.getPlaylist('bufanuvols', id).then(data => {
+						console.log(data);
+						resolve(data);
+					}, (err) => {
+						console.log(err);
+					});
+				});
+			}
 		});
 	}
 }
