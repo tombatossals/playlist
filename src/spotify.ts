@@ -1,5 +1,4 @@
 /// <reference path="../typings/tsd.d.ts" />
-/// <reference path="../spotify-web-api-node.d.ts" />
 
 var axios:axios.AxiosStatic = require("axios");
 var SpotifyWebApi = require('spotify-web-api-node');
@@ -68,7 +67,6 @@ export class Spotify {
 			if (!this.config.token) {
 				this.auth().then(() => {
 					this.spotifyApi.getPlaylist('bufanuvols', id).then(data => {
-						console.log(data);
 						resolve(data);
 					}, (err) => {
 						console.log(err);

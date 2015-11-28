@@ -1,5 +1,4 @@
 /// <reference path="../typings/tsd.d.ts" />
-/// <reference path="../spotify-web-api-node.d.ts" />
 
 var jsonConfig:any = require('../config/spotify');
 import * as spotify from './spotify';
