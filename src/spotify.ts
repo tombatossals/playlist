@@ -2,7 +2,7 @@
 
 var axios:axios.AxiosStatic = require("axios");
 var SpotifyWebApi = require('spotify-web-api-node');
-import * as rockband from './rockband';
+import { Track } from './rockband';
 
 class SpotifyLoginAuth {
 	clientID: string;
@@ -12,7 +12,7 @@ class SpotifyLoginAuth {
 
 export class SpotifyConfig {
 	apiURL: string;
-	auth:SpotifyLoginAuth;;
+	auth:SpotifyLoginAuth;
 	token:string;
 	
 	constructor(jsonConfig:any) {
@@ -26,7 +26,7 @@ export class SpotifyConfig {
 
 export class Spotify {
 	axios: axios.AxiosStatic = axios;
-	spotifyApi;
+	spotifyApi:any;
 	config: SpotifyConfig;
 	
 	constructor(config:SpotifyConfig) {
@@ -64,7 +64,7 @@ export class Spotify {
 		});
 	}
 	
-	public getPlayList(id: string):Promise<rockband.Track[]> {
+	public getPlayList(id: string):Promise<Track[]> {
 		return new Promise((resolve, reject) => {
 			if (!this.config.token) {
 				this.auth().then(() => {

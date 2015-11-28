@@ -1,8 +1,8 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 var jsonConfig:any = require('../config/spotify');
-import * as spotify from './spotify';
-import * as logger from './logger';
+import { Spotify } from './spotify';
+import { Logger } from './logger';
 
 export class Track {
 	position: number;
@@ -19,14 +19,13 @@ export class Track {
 }
 
 export class PlayList {
-	config:spotify.SpotifyConfig = new spotify.SpotifyConfig(jsonConfig);
-	spotify:spotify.Spotify = new spotify.Spotify(jsonConfig);
+	spotify:Spotify = new Spotify(jsonConfig);
 	id: string;
-	logger: logger.ILogger;
+	logger: Logger;
 	
 	constructor(id:string) {
 		this.id = id;
-		this.logger = new logger.BunyanLogger();
+		this.logger = new Logger();
 	}
 	
 	public getSongs(id:string):Promise<any[]> {

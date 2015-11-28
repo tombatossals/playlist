@@ -9,7 +9,7 @@ export interface ILogger {
 	error(message:string): void;
 }
 
-export class BunyanLogger implements ILogger {
+export class Logger implements ILogger {
 	logger:any;
 	
 	constructor() {

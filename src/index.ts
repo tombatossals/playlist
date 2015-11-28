@@ -1,8 +1,8 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-import * as rockband from './rockband';
+import { PlayList } from './rockband';
 
-var playlist:rockband.PlayList = new rockband.PlayList('DLC2007');
+var playlist:PlayList = new PlayList('DLC2007');
 
 
 playlist.getSongs('6wOqqTrN3ZzdiyoEDMtfTW').then((songs) => {
