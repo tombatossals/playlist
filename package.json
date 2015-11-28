@@ -23,6 +23,7 @@
   "homepage": "https://github.com/tombatossals/rockband-spotify-playlist-checker.gi#readme",
   "dependencies": {
     "axios": "^0.7.0",
+    "bunyan": "^1.5.1",
     "spotify-web-api-node": "^2.2.0"
   },
   "engine": "node 0.12"

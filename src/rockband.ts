@@ -2,6 +2,7 @@
 
 var jsonConfig:any = require('../config/spotify');
 import * as spotify from './spotify';
+import * as logger from './logger';
 
 export class Track {
 	position: number;
@@ -20,13 +21,16 @@ export class Track {
 export class PlayList {
 	config:spotify.SpotifyConfig = new spotify.SpotifyConfig(jsonConfig);
 	spotify:spotify.Spotify = new spotify.Spotify(jsonConfig);
-	id:string;
+	id: string;
+	logger: logger.ILogger;
 	
 	constructor(id:string) {
 		this.id = id;
+		this.logger = new logger.BunyanLogger();
 	}
 	
 	public getSongs(id:string):Promise<any[]> {
+		this.logger.info("Getting songs from the playlist " + id);	
 		return new Promise((resolve, reject) => {
 			this.spotify.getPlayList(id).then((data:any) => {
 				var tracks:Track[] = [];

@@ -1,11 +1,8 @@
-declare module SpotifyWebApiNode {
-	  interface SpotifyWebApiNodeStatic {
-		  setAccessToken<T>(accessToken:string): void;
-	  }
-}
-
-declare var spotifyWebApiNode: SpotifyWebApiNode.SpotifyWebApiNodeStatic;
-
 declare module "spotify-web-api-node" {
-  export = spotifyWebApiNode;
+	
+	class SpotifyWebApiNode {
+		setAccessToken<T>(accessToken:string): void;
+	}
+	
+	export = SpotifyWebApiNode;
 }
