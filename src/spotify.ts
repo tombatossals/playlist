@@ -10,27 +10,17 @@ class SpotifyLoginAuth {
 	redirectURI: string;
 }
 
-export class SpotifyConfig {
+export interface SpotifyConfig {
 	apiURL: string;
 	auth:SpotifyLoginAuth;
 	token:string;
-	
-	constructor(jsonConfig:any) {
-		this.auth = {
-			clientID: jsonConfig.auth.clientID,
-			clientSecret: jsonConfig.auth.clientSecret,
-			redirectURI: jsonConfig.auth.redirectURI
-		};
-	}
 }
 
 export class Spotify {
 	axios: axios.AxiosStatic = axios;
 	spotifyApi:any;
-	config: SpotifyConfig;
 	
-	constructor(config:SpotifyConfig) {
-		this.config = config;
+	constructor(public config:SpotifyConfig) {
 		this.spotifyApi = new SpotifyWebApi({
 			clientId: config.auth.clientID,
 			clientSecret: config.auth.clientSecret,

@@ -4,18 +4,11 @@ var jsonConfig:any = require('../config/spotify');
 import { Spotify } from './spotify';
 import { Logger } from './logger';
 
-export class Track {
+export interface Track {
 	position: number;
 	name: string;
 	artist: string;
 	album: string;
-	
-	constructor(position:number, name:string, artist:string, album:string) {
-		this.position = position;
-		this.name = name;
-		this.artist = artist;
-		this.album = album;
-	}
 }
 
 export class PlayList {
@@ -36,7 +29,12 @@ export class PlayList {
 				var dataTracks:any = data.body.tracks.items;
 				
 				dataTracks.forEach((element, i) => {
-					var track:Track = new Track(i+1, element.track.name, element.track.artists[0].name, element.track.album.name);
+					var track:Track = {
+						position: i+1, 
+						name: element.track.name,
+						artist: element.track.artists[0].name,
+						album: element.track.album.name
+					};
 					tracks.push(track);	
 				});
 				resolve(tracks);
