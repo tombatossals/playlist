@@ -1,45 +1,45 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 var axios:axios.AxiosStatic = require("axios");
-var SpotifyAPI:SpotifyWebAPI = require('spotify-web-api-node');
-import { Track } from './rockband';
+var SpotifyAPI:SpotifyWebAPI = require("spotify-web-api-node");
+import { Track } from "./rockband";
 
 export interface SpotifyConfig {
 	apiURL: string;
-	auth: { clientID: string, clientSecret: string, redirectURI: string },
+	auth: { clientID: string, clientSecret: string, redirectURI: string };
 	token:string;
 }
 
 export class Spotify {
 	axios: axios.AxiosStatic = axios;
 	spotifyApi:SpotifyWebAPI;
-	
+
 	constructor(public config:SpotifyConfig) {
 		this.spotifyApi = new SpotifyAPI({
 			clientId: config.auth.clientID,
 			clientSecret: config.auth.clientSecret,
 			redirectUri: config.auth.redirectURI
-		});		
+		});
 	}
-	
+
 	private getBase64AuthHeader(): string {
-		return 'Basic ' + new Buffer(this.config.auth.clientID + ':' + this.config.auth.clientSecret).toString('base64');
+		return "Basic " + new Buffer(this.config.auth.clientID + ":" + this.config.auth.clientSecret).toString("base64");
 	}
-	
+
 	private auth():Promise<any> {
 		return new Promise((resolve, reject) => {
 			axios({
 				url: this.config.apiURL,
-				method: 'post',
+				method: "post",
 				params: {
-					grant_type: 'client_credentials'	
+					grant_type: "client_credentials"
 				},
-				headers: { 
+				headers: {
 					Authorization: this.getBase64AuthHeader(),
-					'Content-Type':'application/x-www-form-urlencoded' 
+					"Content-Type":"application/x-www-form-urlencoded"
 				}
 			}).then(response => {
-				this.config.token = response.data['access_token'];
+				this.config.token = response.data["access_token"];
 				this.spotifyApi.setAccessToken(this.config.token);
 				resolve(this.config.token);
 			}).catch(response => {
@@ -47,12 +47,12 @@ export class Spotify {
 			});
 		});
 	}
-	
+
 	public getPlayList(id: string):Promise<Track[]> {
 		return new Promise((resolve, reject) => {
 			if (!this.config.token) {
 				this.auth().then(() => {
-					this.spotifyApi.getPlaylist('bufanuvols', id).then(data => {
+					this.spotifyApi.getPlaylist("bufanuvols", id).then(data => {
 						resolve(data);
 					}, (err) => {
 						console.log(err);
