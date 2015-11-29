@@ -1,27 +1,21 @@
 /// <reference path="../typings/tsd.d.ts" />
 
 var axios:axios.AxiosStatic = require("axios");
-var SpotifyWebApi = require('spotify-web-api-node');
+var SpotifyAPI:SpotifyWebAPI = require('spotify-web-api-node');
 import { Track } from './rockband';
-
-class SpotifyLoginAuth {
-	clientID: string;
-	clientSecret: string;
-	redirectURI: string;
-}
 
 export interface SpotifyConfig {
 	apiURL: string;
-	auth:SpotifyLoginAuth;
+	auth: { clientID: string, clientSecret: string, redirectURI: string },
 	token:string;
 }
 
 export class Spotify {
 	axios: axios.AxiosStatic = axios;
-	spotifyApi:any;
+	spotifyApi:SpotifyWebAPI;
 	
 	constructor(public config:SpotifyConfig) {
-		this.spotifyApi = new SpotifyWebApi({
+		this.spotifyApi = new SpotifyAPI({
 			clientId: config.auth.clientID,
 			clientSecret: config.auth.clientSecret,
 			redirectUri: config.auth.redirectURI
