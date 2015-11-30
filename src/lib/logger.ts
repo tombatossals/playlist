@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-var bunyan = require("bunyan");
+var w = require("winston");
 
 export interface ILogger {
  	debug(message:string): void;
@@ -10,13 +10,15 @@ export interface ILogger {
 }
 
 export class Logger implements ILogger {
-	logger:any;
+	logger:winston.LoggerInstance;
 
 	constructor() {
 		if (!this.logger) {
-			this.logger = bunyan.createLogger({
+			this.logger = new w.Logger({
 				name: "rockband",
-				stream: process.stdout,
+				transports: [
+					new w.transports.Console()
+				],
 				level: "info"
 			});
 		}
