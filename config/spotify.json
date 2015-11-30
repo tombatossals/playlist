@@ -2,13 +2,6 @@
   "apiURL": "https://accounts.spotify.com/api/token",
   "auth": {
     "clientID": "e232969c851e4ce291f3956b8544ac22",
-    "clientSecret": "aac252f97b1a480b830ffe1b9d46673b",
-    "redirectURI": ""
-  },
-  "playlists": {
-    "username": "bufanuvols",
-    "DLC007": {
-      "id": "6wOqqTrN3ZzdiyoEDMtfTW"
-    }
+    "clientSecret": "aac252f97b1a480b830ffe1b9d46673b"
   }
 }

@@ -5,7 +5,7 @@ import { PlayList } from "./rockband";
 var playlist:PlayList = new PlayList("DLC2007");
 
 
-playlist.getSongs("6wOqqTrN3ZzdiyoEDMtfTW").then((songs) => {
+playlist.getSongs("DLC2007").then((songs) => {
 	console.log(songs.length);
 });
 

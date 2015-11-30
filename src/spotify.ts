@@ -4,17 +4,22 @@ var axios:axios.AxiosStatic = require("axios");
 var SpotifyAPI:SpotifyWebAPI = require("spotify-web-api-node");
 import { Track } from "./rockband";
 
-export interface SpotifyConfig {
+export interface ISpotifyPlaylistQuery {
+	username: string;
+	id: string;	
+}
+
+export interface ISpotifyConfig {
 	apiURL: string;
-	auth: { clientID: string, clientSecret: string, redirectURI: string };
-	token:string;
+	auth: { clientID: string, clientSecret: string, redirectURI?: string };
 }
 
 export class Spotify {
 	axios: axios.AxiosStatic = axios;
 	spotifyApi:SpotifyWebAPI;
-
-	constructor(public config:SpotifyConfig) {
+	authToken: string;
+	
+	constructor(public config:ISpotifyConfig) {
 		this.spotifyApi = new SpotifyAPI({
 			clientId: config.auth.clientID,
 			clientSecret: config.auth.clientSecret,
@@ -39,20 +44,20 @@ export class Spotify {
 					"Content-Type":"application/x-www-form-urlencoded"
 				}
 			}).then(response => {
-				this.config.token = response.data["access_token"];
-				this.spotifyApi.setAccessToken(this.config.token);
-				resolve(this.config.token);
+				this.authToken = response.data["access_token"];
+				this.spotifyApi.setAccessToken(this.authToken);
+				resolve(this.authToken);
 			}).catch(response => {
 				reject(response);
 			});
 		});
 	}
 
-	public getPlayList(id: string):Promise<Track[]> {
+	public getPlayList(spotifyPlayList: ISpotifyPlaylistQuery):Promise<Track[]> {
 		return new Promise((resolve, reject) => {
-			if (!this.config.token) {
+			if (!this.authToken) {
 				this.auth().then(() => {
-					this.spotifyApi.getPlaylist("bufanuvols", id).then(data => {
+					this.spotifyApi.getPlaylist(spotifyPlayList.username, spotifyPlayList.id).then(data => {
 						resolve(data);
 					}, (err) => {
 						console.log(err);
