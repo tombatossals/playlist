@@ -25,6 +25,7 @@
   "dependencies": {
     "axios": "^0.7.0",
     "bunyan": "^1.5.1",
+    "express": "^4.13.3",
     "spotify-web-api-node": "^2.2.0",
     "tslint": "^3.0.0",
     "typescript": "^1.6.2"

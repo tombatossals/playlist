@@ -1,13 +1,9 @@
-/// <reference path="../typings/tsd.d.ts" />
-
+/// <reference path="../../typings/tsd.d.ts" />
 
 import { Spotify, ISpotifyConfig, ISpotifyPlaylistQuery } from "./spotify";
 import { Logger } from "./logger";
 
-var jsonConfig:ISpotifyConfig = require("../config/spotify");
-var rockbandConfig:IRockBandConfig = require("../config/rockband");
-
-interface IRockBandConfig {
+export interface IRockBandConfig {
 	playlists: {
 		[key:string]: {
 			username: string,
@@ -23,19 +19,22 @@ export interface Track {
 	album: string;
 }
 
-export class PlayList {
-	spotify:Spotify = new Spotify(jsonConfig);
-	id: string;
+export class RockBand {
+	spotify:Spotify;
 	logger: Logger;
 
-	constructor(id:string) {
-		this.id = id;
+	constructor(public config:IRockBandConfig, spotifyConfig:ISpotifyConfig) {
 		this.logger = new Logger();
+		this.spotify = new Spotify(spotifyConfig);
+	}
+	
+	public loadPlayLists(playlistConfig:IRockBandConfig) {
+		
 	}
 	
 	public getSpotifyPlaylist(id:string): ISpotifyPlaylistQuery {
-		if (rockbandConfig.playlists.hasOwnProperty(id)) {
-			return rockbandConfig.playlists[id];
+		if (this.config.playlists.hasOwnProperty(id)) {
+			return this.config.playlists[id];
 		}
 	}
 

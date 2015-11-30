@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../../typings/tsd.d.ts" />
 
 var axios:axios.AxiosStatic = require("axios");
 var SpotifyAPI:SpotifyWebAPI = require("spotify-web-api-node");

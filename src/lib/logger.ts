@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../../typings/tsd.d.ts" />
 
 var bunyan = require("bunyan");
 
