@@ -1,5 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-var express = require("express");
+import * as express from "express";
+
 var app:Express.Application = express();
 

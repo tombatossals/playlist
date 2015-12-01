@@ -25,6 +25,12 @@
     },
     "mime/mime.d.ts": {
       "commit": "fb2b3b1e068c9ff7d8f9b0851c08d37d96c95c38"
+    },
+    "mongoose/mongoose.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
+    },
+    "bunyan/bunyan.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
     }
   }
 }

@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-var axios:axios.AxiosStatic = require("axios");
+import * as axios from "axios";
 var SpotifyAPI:SpotifyWebAPI = require("spotify-web-api-node");
 import { Track } from "./rockband";
 
