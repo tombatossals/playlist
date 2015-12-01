@@ -1,6 +1,8 @@
 {
 	"port": 8080,
 	"secret": "lucuriucu",
-	"database": "mongodb://localhost",
-	"environment": "dev"	
+	"database": "mongodb://mongodb",
+	"logger": {
+		"format": "combined"
+	}
 }
