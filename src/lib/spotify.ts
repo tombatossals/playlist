@@ -1,7 +1,8 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
 import * as axios from "axios";
-var SpotifyAPI:SpotifyWebAPI = require("spotify-web-api-node");
+var SpotifyWebAPI = require("spotify-web-api-node");
+
 import { Track } from "./rockband";
 
 export interface ISpotifyPlaylistQuery {
@@ -20,7 +21,7 @@ export class Spotify {
 	authToken: string;
 	
 	constructor(public config:ISpotifyConfig) {
-		this.spotifyApi = new SpotifyAPI({
+		this.spotifyApi = new SpotifyWebAPI({
 			clientId: config.auth.clientID,
 			clientSecret: config.auth.clientSecret,
 			redirectUri: config.auth.redirectURI

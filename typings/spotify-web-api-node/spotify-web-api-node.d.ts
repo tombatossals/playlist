@@ -1,5 +1,6 @@
 // Type definitions for spotify-web-api-node
-// Project: https://github.com/mzabriskie/axios
+// Project: https://github.com/thelinmichael/spotify-web-api-node
+
 
 interface ISpotifyLoginAuth {
 	clientId: string;
@@ -12,5 +13,3 @@ declare interface SpotifyWebAPI {
 	getPlaylist(username:string, id:string): Promise<any>;
 	new(auth:ISpotifyLoginAuth): SpotifyWebAPI;
 }
-
-
