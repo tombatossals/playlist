@@ -1,0 +1,6 @@
+{
+	"port": 8080,
+	"secret": "lucuriucu",
+	"database": "mongodb://localhost",
+	"environment": "dev"	
+}

@@ -34,6 +34,12 @@
     },
     "bluebird/bluebird.d.ts": {
       "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
+    },
+    "body-parser/body-parser.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
+    },
+    "morgan/morgan.d.ts": {
+      "commit": "e850b6ac0d59fee86dd7cb6a1be2caf6400bde14"
     }
   }
 }

@@ -4,6 +4,7 @@
   "description": "Rock Band Spotify Playlists Checker",
   "main": "index.js",
   "scripts": {
+    "server": "tsc; node dist/app/server.js",
     "start": "tsc; node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint src/**.ts"
