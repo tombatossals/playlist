@@ -26,7 +26,7 @@ var _schema: mongoose.Schema = new mongoose.Schema({
 });
 
 
-var _model = mongoose.model < IUser > ('User', _schema);
+var _model = mongoose.model <IUser> ('User', _schema);
 
 class User {
 
