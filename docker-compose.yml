@@ -1,5 +1,5 @@
 app:
-  build: .
+  image: tombatossals/playlist
   ports:
     - "8080:8080"
   links:

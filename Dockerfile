@@ -1,9 +1,11 @@
-#FROM mhart/alpine-node:base
+FROM mhart/alpine-node:base
 # FROM mhart/alpine-node:base-0.10
-FROM mhart/alpine-node
+#FROM mhart/alpine-node
 
 WORKDIR /src
-ADD . .
+ADD dist dist
+ADD config config
+ADD node_modules node_modules
 
 # If you have native dependencies, you'll need extra tools
 # RUN apk add --update make gcc g++ python
@@ -16,4 +18,4 @@ ADD . .
 #   rm -rf /tmp/* /var/cache/apk/* /root/.npm /root/.node-gyp
 
 EXPOSE 3000
-CMD ["npm", "run", "server"]
+CMD ["node", "dist/app/index.js"]

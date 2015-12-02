@@ -20,7 +20,7 @@ interface ILoggerConfig {
 	format: string
 }
 
-class App {
+class PlaylistApp {
 	app:express.Express;
 	db: DocumentDB;
 	
@@ -57,5 +57,5 @@ class App {
 }
 
 var expressConfig:IExpressConfig = require("../../config/express");
-var app = new App(expressConfig);
+var app = new PlaylistApp(expressConfig);
 app.start();

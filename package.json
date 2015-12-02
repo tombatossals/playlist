@@ -4,10 +4,11 @@
   "description": "Rock Band Spotify Playlists Checker",
   "main": "index.js",
   "scripts": {
-    "server": "tsc; node dist/app/server.js",
-    "start": "tsc; node dist/index.js",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "tslint src/**.ts"
+    "tslint": "tslint src/**.ts",
+    "clean": "rm -rf dist/*; rm -rf node_modules/*",
+    "uglify": "uglify -s "
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,6 @@
   "homepage": "https://github.com/tombatossals/rockband-spotify-playlist-checker.gi#readme",
   "dependencies": {
     "axios": "^0.7.0",
-    "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
     "bunyan": "^1.5.1",
     "express": "^4.13.3",
@@ -33,9 +33,12 @@
     "mongoose": "^4.2.8",
     "morgan": "^1.6.1",
     "redis": "^2.4.2",
-    "spotify-web-api-node": "^2.2.0",
+    "spotify-web-api-node": "^2.2.0"
+  },
+  "devDependencies": {
     "tslint": "^3.0.0",
-    "typescript": "^1.6.2"
+    "typescript": "^1.6.2",
+    "uglify": "^0.1.5"
   },
   "engine": "node 0.12"
 }

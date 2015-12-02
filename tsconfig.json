@@ -5,7 +5,8 @@
         "emitDecoratorMetadata": true,
         "target": "ES5",
         "outDir": "dist",
-        "rootDir": "src"
+        "rootDir": "src",
+        "sourceMap": true
     },
     "exclude": [
         "node_modules"

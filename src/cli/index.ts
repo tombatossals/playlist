@@ -1,7 +1,7 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../../typings/tsd.d.ts" />
 
-import { RockBand, IRockBandConfig} from "./lib/rockband";
-import { ISpotifyConfig } from "./lib/spotify";
+import { RockBand, IRockBandConfig} from "../lib/rockband";
+import { ISpotifyConfig } from "../lib/spotify";
 
 var rockbandConfig:IRockBandConfig = require("../config/rockband");
 var spotifyConfig:ISpotifyConfig = require("../config/spotify");
