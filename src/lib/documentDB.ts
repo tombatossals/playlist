@@ -3,6 +3,10 @@
 
 import * as mongoose from "mongoose";
 
+export interface IDocumentDBConfig {
+	connection: string;
+}
+
 export class DocumentDB {
 	db:mongoose.Connection;
 	

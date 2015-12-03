@@ -38,25 +38,11 @@ export class RockBand {
 		}
 	}
 
-	public getSongs(id:string):Promise<any[]> {
+	public getSongs(id:string):Promise<spotify.ISpotifyTrack[]> {
 		this.logger.info("Getting songs from the playlist " + id);
 		var spotifyPlayList = this.getSpotifyPlaylist(id);
 		return new Promise((resolve, reject) => {
-			this.spotify.getPlayList(spotifyPlayList).then((spotifyTracks:spotify.ISpotifyTrack[]) => {
-				var tracks:Track[] = [];
-
-				spotifyTracks.forEach((element:spotify.ISpotifyTrack, i) => {
-					var track:Track = {
-						position: i+1,
-						name: element.track.name,
-						artist: element.track.artists[0].name,
-						album: element.track.album.name
-					};
-					tracks.push(track);
-				});
-				resolve(tracks);
-			});
+			resolve(this.spotify.getPlayList(spotifyPlayList));
 		});
-
 	}
 }
