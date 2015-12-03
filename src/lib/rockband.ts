@@ -23,16 +23,16 @@ export class RockBand {
 	spotify:spotify.Spotify;
 	logger: Logger;
 
-	constructor(public config:IRockBandConfig, spotifyConfig:ISpotifyConfig) {
+	constructor(public config:IRockBandConfig, spotifyConfig:spotify.ISpotifyConfig) {
 		this.logger = new Logger();
-		this.spotify = new Spotify(spotifyConfig);
+		this.spotify = new spotify.Spotify(spotifyConfig);
 	}
 	
 	public loadPlayLists(playlistConfig:IRockBandConfig) {
 		
 	}
 	
-	public getSpotifyPlaylist(id:string): ISpotifyPlaylistQuery {
+	public getSpotifyPlaylist(id:string): spotify.ISpotifyPlaylistQuery {
 		if (this.config.playlists.hasOwnProperty(id)) {
 			return this.config.playlists[id];
 		}
@@ -42,12 +42,10 @@ export class RockBand {
 		this.logger.info("Getting songs from the playlist " + id);
 		var spotifyPlayList = this.getSpotifyPlaylist(id);
 		return new Promise((resolve, reject) => {
-			this.spotify.getPlayList(spotifyPlayList).then((data:any) => {
+			this.spotify.getPlayList(spotifyPlayList).then((spotifyTracks:spotify.ISpotifyTrack[]) => {
 				var tracks:Track[] = [];
-				var dataTracks:any = data.body.tracks.items;
 
-				dataTracks.forEach((element, i) => {
-					console.log(element);
+				spotifyTracks.forEach((element:spotify.ISpotifyTrack, i) => {
 					var track:Track = {
 						position: i+1,
 						name: element.track.name,
