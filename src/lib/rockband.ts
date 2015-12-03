@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-import { Spotify, ISpotifyConfig, ISpotifyPlaylistQuery } from "./spotify";
+import * as spotify from "./spotify";
 import { Logger } from "./logger";
 
 export interface IRockBandConfig {
@@ -20,7 +20,7 @@ export interface Track {
 }
 
 export class RockBand {
-	spotify:Spotify;
+	spotify:spotify.Spotify;
 	logger: Logger;
 
 	constructor(public config:IRockBandConfig, spotifyConfig:ISpotifyConfig) {
@@ -47,6 +47,7 @@ export class RockBand {
 				var dataTracks:any = data.body.tracks.items;
 
 				dataTracks.forEach((element, i) => {
+					console.log(element);
 					var track:Track = {
 						position: i+1,
 						name: element.track.name,
