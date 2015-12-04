@@ -15,7 +15,6 @@ export class DocumentDB {
 	}
 	
 	static disconnect():void {
-		console.log("bye");
 		mongoose.disconnect();
 	}
 }

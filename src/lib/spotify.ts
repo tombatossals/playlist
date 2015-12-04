@@ -47,6 +47,10 @@ interface ISpotifyAlbum {
 export interface ISpotifyTrack {
 	added_at: Date,
 	added_by: string,
+	playlist: {
+		username: string,
+		id: string
+	},
 	track: {
 		uri: string,
 		type: string,
@@ -112,11 +116,17 @@ export class Spotify {
 
 	private getAuthPlayList(spotifyPlayList: ISpotifyPlaylistQuery):Promise<ISpotifyTrack[]> {
 		return new Promise((resolve, reject) => {
-			this.spotifyApi.getPlaylist(spotifyPlayList.username, spotifyPlayList.id).then(data => {
-				resolve(data.body.tracks.items);
-			}, (err) => {
-				console.log(err);
-				reject(err);
+			this.spotifyApi.getPlaylistTracks(spotifyPlayList.username, spotifyPlayList.id).then(data => {
+				var tracks:ISpotifyTrack[] = data.body.items;
+				
+				tracks.map(track => {
+					track.playlist = {
+						username: spotifyPlayList.username,
+						id: spotifyPlayList.id
+					}
+				});
+				
+				resolve(tracks);
 			});
 		});
 	}
