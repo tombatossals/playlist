@@ -12,14 +12,21 @@ var spotifyConfig:ISpotifyConfig = require("../../config/spotify");
 var playlist:RockBand = new RockBand(rockbandConfig, spotifyConfig);
 
 
-var argv = yargs.demand(1).usage("Usage: $0 <RockBand PlayList ID>").argv;
+var argv = yargs.demand(2)
+				.usage("Usage: $0 <action> <RockBand PlayList ID>")
+				.check((argv, options) => {
+					return true;
+				})
+				.argv;
 
-var playlistID = argv._[0];
-var documentDB = new documentDB.DocumentDB(databaseConfig.connection);
+var playlistID = argv._[1];
+var db = documentDB.DocumentDB.connect(databaseConfig.documentDB.connection);
 
+
+console.log(playlistID);
 playlist.getSongs(playlistID).then((tracks) => {
-
 	TrackModel.insertTracks(tracks);
+	documentDB.DocumentDB.disconnect();
 });
 
 

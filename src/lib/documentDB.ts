@@ -4,16 +4,18 @@
 import * as mongoose from "mongoose";
 
 export interface IDocumentDBConfig {
-	connection: string;
+	documentDB: {
+		connection: string;
+	}
 }
 
 export class DocumentDB {
-	db:mongoose.Connection;
+	static connect(conn:string):mongoose.Mongoose {
+		return mongoose.connect(conn);
+	}
 	
-	constructor(conn:string) {
-		if (!this.db) {
-			mongoose.connect(conn);
-			this.db = mongoose.connection;
-		}
+	static disconnect():void {
+		console.log("bye");
+		mongoose.disconnect();
 	}
 }

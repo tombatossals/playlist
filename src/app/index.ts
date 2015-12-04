@@ -42,7 +42,7 @@ class PlaylistApp {
 	
 	constructor(public config:IExpressConfig) {
 		this.app = express(); 		
-		this.db = new DocumentDB(expressConfig.database);
+		this.db = DocumentDB.connect(expressConfig.database);
 		this.app.set("superSecret", expressConfig.secret);
 		
 		this.configureLogger(this.config.logger);

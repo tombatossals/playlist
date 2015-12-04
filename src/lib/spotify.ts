@@ -88,7 +88,7 @@ export class Spotify {
 		return "Basic " + new Buffer(this.config.auth.clientID + ":" + this.config.auth.clientSecret).toString("base64");
 	}
 
-	private auth():Promise<any> {
+	private auth():Promise<string> {
 		return new Promise((resolve, reject) => {
 			axios({
 				url: this.config.apiURL,
@@ -110,16 +110,25 @@ export class Spotify {
 		});
 	}
 
+	private getAuthPlayList(spotifyPlayList: ISpotifyPlaylistQuery):Promise<ISpotifyTrack[]> {
+		return new Promise((resolve, reject) => {
+			this.spotifyApi.getPlaylist(spotifyPlayList.username, spotifyPlayList.id).then(data => {
+				resolve(data.body.tracks.items);
+			}, (err) => {
+				console.log(err);
+				reject(err);
+			});
+		});
+	}
+	
 	public getPlayList(spotifyPlayList: ISpotifyPlaylistQuery):Promise<ISpotifyTrack[]> {
 		return new Promise((resolve, reject) => {
 			if (!this.authToken) {
 				this.auth().then(() => {
-					this.spotifyApi.getPlaylist(spotifyPlayList.username, spotifyPlayList.id).then(data => {
-						resolve(data.body.tracks.items);
-					}, (err) => {
-						console.log(err);
-					});
+					resolve(this.getAuthPlayList(spotifyPlayList));
 				});
+			} else {
+				resolve(this.getAuthPlayList(spotifyPlayList));
 			}
 		});
 	}
