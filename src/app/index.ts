@@ -52,6 +52,7 @@ class PlaylistApp {
 		this.app.set("superSecret", config.secret);
 
 		this.configureLogger(this.config.logger);
+		this.configureViewEngine();
 		this.configureBodyParser();
 		this.configureRoutes();
 	}

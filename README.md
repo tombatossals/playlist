@@ -1,1 +1,1 @@
-# rockband-spotify-playlist-checker
+# playlist
