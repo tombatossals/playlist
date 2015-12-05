@@ -1,7 +1,9 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
+import { DocumentDB, IDocumentDBConfig } from "./documentDB";
 import * as spotify from "./spotify";
 import { Logger } from "./logger";
+import { TrackModel } from "../models/track";
 
 export interface IRockBandConfig {
 	playlists: {
@@ -9,7 +11,7 @@ export interface IRockBandConfig {
 			username: string,
 			id: string
 		}
-	}
+	};
 }
 
 export interface Track {
@@ -21,26 +23,33 @@ export interface Track {
 
 export class RockBand {
 	spotify:spotify.Spotify;
+	db: DocumentDB;
 	logger: Logger;
 
-	constructor(public config:IRockBandConfig, spotifyConfig:spotify.ISpotifyConfig) {
+	constructor(databaseConfig: IDocumentDBConfig, spotifyConfig:spotify.ISpotifyConfig) {
 		this.logger = new Logger();
 		this.spotify = new spotify.Spotify(spotifyConfig);
-	}
-	
-	public loadPlayLists(playlistConfig:IRockBandConfig) {
-		
-	}
-	
-	public getSpotifyPlaylist(id:string): spotify.ISpotifyPlaylistQuery {
-		if (this.config.playlists.hasOwnProperty(id)) {
-			return this.config.playlists[id];
-		}
+		this.db = DocumentDB.connect(databaseConfig.documentDB.connection);
 	}
 
-	public getSongs(id:string):Promise<spotify.ISpotifyTrack[]> {
-		this.logger.info("Getting songs from the playlist " + id);
-		var spotifyPlayList = this.getSpotifyPlaylist(id);
+	public removePlayList(spotifyPlayList:spotify.ISpotifyPlaylistQuery):Promise<boolean> {
+		return TrackModel.deletePlayList(spotifyPlayList);
+	}
+
+	public storePlayListSongs(spotifyPlayList:spotify.ISpotifyPlaylistQuery): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			this.getSongs(spotifyPlayList).then((tracks) => {
+				TrackModel.deletePlayList(spotifyPlayList).then(() => {
+					TrackModel.insertTracks(tracks).then(() => {
+						resolve(true);
+					});
+				});
+			});
+		});
+	}
+
+	private getSongs(spotifyPlayList:spotify.ISpotifyPlaylistQuery):Promise<spotify.ISpotifyTrack[]> {
+		this.logger.info("Getting songs from the playlist " + spotifyPlayList.id);
 		return new Promise((resolve, reject) => {
 			resolve(this.spotify.getPlayList(spotifyPlayList));
 		});

@@ -20,22 +20,22 @@ var _schema: mongoose.Schema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-}).pre('save', function(next) {
+}).pre("save", function(next) {
     this.updated = new Date();
     next();
 });
 
 
-var _model = mongoose.model <IUser> ('User', _schema);
+var _model = mongoose.model <IUser> ("User", _schema);
 
 class User {
 
     private _document: IUser;
-    
+
     constructor(document: IUser) {
         this._document = document;
     }
-    
+
     static findByUsername(username: string): Promise <IUser> {
         return new Promise <IUser>((resolve, reject) => {
             _model.findOne({ username: username}).exec().then(user => {
@@ -43,8 +43,8 @@ class User {
                 console.log(user);
             }).reject((err) => {
                 reject(err);
-            })
-        })
+            });
+        });
     }
 }
 

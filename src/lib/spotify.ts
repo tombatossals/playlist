@@ -5,7 +5,7 @@ var SpotifyWebAPI = require("spotify-web-api-node");
 
 export interface ISpotifyPlaylistQuery {
 	username: string;
-	id: string;	
+	id: string;
 }
 
 export interface ISpotifyConfig {
@@ -16,41 +16,38 @@ export interface ISpotifyConfig {
 interface ISpotifyArtist {
 	external_urls: {
 		spotify: string
-	},
-	href: string,
-	id: string,
-	name: string,
-	type: string,
-	uri: string
+	};
+	href: string;
+	id: string;
+	name: string;
+	type: string;
+	uri: string;
 }
 
 interface ISpotifyAlbumImage {
-	height: number,
-	width: number,
-	url: string
+	height: number;
+	width: number;
+	url: string;
 }
 
 interface ISpotifyAlbum {
-	album_type: string,
-	available_markets: string[],
+	album_type: string;
+	available_markets: string[];
 	external_urls: {
 		spotify: string
-	},
-	href: string,
-	id: string,
-	images: ISpotifyAlbumImage[],
-	name: string,
-	type: string,
-	uri: string
+	};
+	href: string;
+	id: string;
+	images: ISpotifyAlbumImage[];
+	name: string;
+	type: string;
+	uri: string;
 }
 
 export interface ISpotifyTrack {
-	added_at: Date,
-	added_by: string,
-	playlist: {
-		username: string,
-		id: string
-	},
+	added_at: Date;
+	added_by: string;
+	playlist_id: string;
 	track: {
 		uri: string,
 		type: string,
@@ -72,14 +69,14 @@ export interface ISpotifyTrack {
 		available_markets: string[],
 		artists: ISpotifyArtist[],
 		album: ISpotifyAlbum
-	}
+	};
 }
 
 export class Spotify {
 	axios: axios.AxiosStatic = axios;
 	spotifyApi:SpotifyWebAPI;
 	authToken: string;
-	
+
 	constructor(public config:ISpotifyConfig) {
 		this.spotifyApi = new SpotifyWebAPI({
 			clientId: config.auth.clientID,
@@ -118,19 +115,15 @@ export class Spotify {
 		return new Promise((resolve, reject) => {
 			this.spotifyApi.getPlaylistTracks(spotifyPlayList.username, spotifyPlayList.id).then(data => {
 				var tracks:ISpotifyTrack[] = data.body.items;
-				
 				tracks.map(track => {
-					track.playlist = {
-						username: spotifyPlayList.username,
-						id: spotifyPlayList.id
-					}
+					track.playlist_id = spotifyPlayList.id;
+					track.added_by = spotifyPlayList.username;
 				});
-				
 				resolve(tracks);
 			});
 		});
 	}
-	
+
 	public getPlayList(spotifyPlayList: ISpotifyPlaylistQuery):Promise<ISpotifyTrack[]> {
 		return new Promise((resolve, reject) => {
 			if (!this.authToken) {

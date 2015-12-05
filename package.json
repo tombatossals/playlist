@@ -4,10 +4,11 @@
   "description": "Rock Band Spotify Playlists Checker",
   "main": "index.js",
   "scripts": {
+    "server": "tsc; node dist/app/index.js",
     "cli": "tsc; node dist/cli/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tslint": "tslint src/**.ts",
+    "tslint": "tslint src/**/*.ts",
     "clean": "rm -rf dist/*; rm -rf node_modules/*",
     "uglify": "uglify -s "
   },
@@ -31,6 +32,7 @@
     "bunyan": "^1.5.1",
     "express": "^4.13.3",
     "jsonwebtoken": "^5.4.1",
+    "material-ui": "^0.14.0-rc1",
     "mongoose": "^4.2.8",
     "morgan": "^1.6.1",
     "redis": "^2.4.2",

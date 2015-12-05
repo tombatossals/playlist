@@ -9,13 +9,13 @@ bluebird.promisifyAll(redis.Multi.prototype);
 
 export class KVDB {
 	client:redis.RedisClient;
-	
+
 	constructor(conn:string) {
 		this.client = redis.createClient();
 	}
-	
+
 	getSongs(key) {
 		this.client;
 	}
-	
+
 }
