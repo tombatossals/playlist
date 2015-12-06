@@ -1,0 +1,26 @@
+html.no-js(lang="")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    title!= title
+    meta(name="description", content="Rockband Songs App")
+    meta(name="viewport", content="width=device-width, init-scale=1")
+    link(rel="stylesheet", type="text/css", href="/static/css/main.css")
+  body
+    h1 PlayList APP
+    div#app
+    script.
+      var WebFontConfig = {
+        google: { families: [ 'Roboto:400,300,500:latin' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    script(src="/static/js/app.js")
+

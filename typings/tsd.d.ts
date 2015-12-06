@@ -9,4 +9,4 @@
 /// <reference path="bunyan/bunyan.d.ts" />
 /// <reference path="body-parser/body-parser.d.ts" />
 /// <reference path="material-ui/material-ui.d.ts" />
-/// <reference path="react/react.d.ts" />
+/// <reference path="webpack/webpack.d.ts" />

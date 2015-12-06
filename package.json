@@ -4,7 +4,12 @@
   "description": "Music PlayList APP",
   "main": "index.js",
   "scripts": {
-    "server": "tsc; node dist/app/index.js",
+    "start": "tsc; npm run copy:static; npm run copy:views; node dist/backend/index.js",
+    "webpack:dev": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
+    "webpack:prod": "webpack --config webpack-production.config.js --progress --colors",
+    "update": "david update",
+    "copy:static": "cp -a src/static dist",
+    "copy:views": "mkdir -p dist/backend; cp -a src/backend/views dist/backend",
     "cli": "tsc; node dist/cli/index.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -38,9 +43,11 @@
     "morgan": "^1.6.1",
     "redis": "^2.4.2",
     "spotify-web-api-node": "^2.2.0",
+    "webpack": "^1.12.9",
     "yargs": "^3.30.0"
   },
   "devDependencies": {
+    "david": "^7.0.0",
     "tslint": "^3.0.0",
     "typescript": "^1.6.2",
     "uglify": "^0.1.5"

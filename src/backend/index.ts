@@ -38,12 +38,18 @@ class PlaylistApp {
 	}
 
 	configureViewEngine() {
+		this.app.set("views", __dirname + "/views");
+		console.log(__dirname + "/views");
 		this.app.set("view engine", "jade");
 	}
 
 	configureRoutes() {
 		var routes = require("./routes");
 		this.app.use("/", routes);
+	}
+	
+	configureStaticFolder(staticFolderPath:string, aliasPath:string) {
+		this.app.use("/" + aliasPath, express.static(staticFolderPath));
 	}
 
 	constructor(public config:IExpressConfig) {
@@ -54,6 +60,7 @@ class PlaylistApp {
 		this.configureLogger(this.config.logger);
 		this.configureViewEngine();
 		this.configureBodyParser();
+		this.configureStaticFolder(__dirname + "/../static", "static");
 		this.configureRoutes();
 	}
 
