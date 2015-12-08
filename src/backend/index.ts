@@ -61,6 +61,7 @@ class PlaylistApp {
 		this.configureViewEngine();
 		this.configureBodyParser();
 		this.configureStaticFolder(__dirname + "/../static", "static");
+		this.configureStaticFolder(__dirname + "/../frontend", "frontend");
 		this.configureRoutes();
 	}
 
