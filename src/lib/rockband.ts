@@ -42,6 +42,8 @@ export class RockBand {
 				TrackModel.deletePlayList(spotifyPlayList).then(() => {
 					TrackModel.insertTracks(tracks).then(() => {
 						resolve(true);
+					}).catch(err => {
+						reject(err);
 					});
 				});
 			});

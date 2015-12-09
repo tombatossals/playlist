@@ -129,6 +129,8 @@ export class Spotify {
 			if (!this.authToken) {
 				this.auth().then(() => {
 					resolve(this.getAuthPlayList(spotifyPlayList));
+				}).catch(err => {
+					reject(err);
 				});
 			} else {
 				resolve(this.getAuthPlayList(spotifyPlayList));

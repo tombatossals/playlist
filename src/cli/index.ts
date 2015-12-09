@@ -8,13 +8,15 @@ import { ArgParser } from "../lib/argparser";
 var databaseConfig:IDocumentDBConfig = require("../../config/database");
 var spotifyConfig:ISpotifyConfig = require("../../config/spotify");
 var rockband:RockBand = new RockBand(databaseConfig, spotifyConfig);
-
 var argv = new ArgParser();
 
 switch (argv.getCommand()) {
 	case "insert":
-		rockband.storePlayListSongs(argv.getPlayList()).then(() => {
+
+		rockband.storePlayListSongs(argv.getPlayList()).then(result => {
 			DocumentDB.disconnect();
+		}).catch(err => {
+			console.log(err);
 		});
 		break;
 	case "remove":
