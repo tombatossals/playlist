@@ -1,10 +1,10 @@
-var webpack = require('webpack');
-var path = require('path');
-var buildPath = path.resolve(__dirname, 'build');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var TransferWebpackPlugin = require('transfer-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const buildPath = path.resolve(__dirname, 'build');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const TransferWebpackPlugin = require('transfer-webpack-plugin');
 
-var config = {
+module.exports = {
   //Entry points to the project
   entry: [
     'webpack/hot/dev-server',
@@ -64,5 +64,3 @@ var config = {
     configFile: '.eslintrc'
   },
 };
-
-module.exports = config;
