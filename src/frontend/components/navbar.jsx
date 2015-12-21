@@ -62,9 +62,16 @@ const Main = React.createClass({
 
   render() {
     return (
-      <div className='mui-app-content-canvas'>
-        <PlayListCard></PlayListCard>
-      </div>
+      <AppBar
+        className="mui-dark-theme"
+        title="Hello World"
+        onMenuIconButtonTouchTap={this._onMenuIconButtonTouchTap}>
+        <div className="action-icons">
+          <IconButton icon="navigation-more-vert" />
+          <IconButton icon="action-favorite-outline" />
+          <IconButton icon="action-search" />
+        </div>
+      </AppBar>
     );
   },
 });

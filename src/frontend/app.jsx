@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router} from 'react-router';
-import AppRoutes from './app-routes.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import createHistory from 'history/lib/createHashHistory';
-
-//Helpers for debugging
-window.React = React;
-window.Perf = require('react-addons-perf');
+import Main from './components/main'; // Our custom react component
+import NavBar from './components/navbar'; // Our custom react component
+import LeftMenu  from './components/left-menu'; // Our custom react component
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release
@@ -15,15 +11,8 @@ window.Perf = require('react-addons-perf');
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-/**
- * Render the main app component. You can read more about the react-router here:
- * https://github.com/rackt/react-router/blob/master/docs/guides/overview.md
- */
-ReactDOM.render(
-  <Router
-    history={createHistory({queryKey: false})}
-    onUpdate={() => window.scrollTo(0, 0)}
-  >
-    {AppRoutes}
-  </Router>
-, document.getElementById('app'));
+// Render the main app react component into the app div.
+// For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
+ReactDOM.render(<Main />, document.getElementById('main'));
+ReactDOM.render(<NavBar />, document.getElementById('navbar'));
+ReactDOM.render(<LeftMenu />, document.getElementById('left-menu'));

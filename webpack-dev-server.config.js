@@ -1,94 +1,66 @@
-var webpack = require('webpack');
-var path = require('path');
-var buildPath = path.resolve(__dirname, 'dist/frontend');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var TransferWebpackPlugin = require('transfer-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const buildPath = path.resolve(__dirname, 'build');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const TransferWebpackPlugin = require('transfer-webpack-plugin');
 
-var config = {
-  //Entry point to the project
+module.exports = {
+  //Entry points to the project
   entry: [
     'webpack/hot/dev-server',
     'webpack/hot/only-dev-server',
     path.join(__dirname, '/src/frontend/app.jsx')
   ],
-  //Webpack config options on how to obtain modules
+  //Config options on how to interpret requires imports
   resolve: {
-    //When requiring, you don't need to add these extensions
-    extensions: ["", ".js", ".jsx", ".txt"],
-    alias: {
-      //material-ui requires will be searched in src folder, not in node_modules
-      'material-ui': path.resolve(__dirname, 'material-ui/src/'),
-      codemirror: path.resolve(__dirname, 'node_modules/codemirror')
-    },
-    //Modules will be searched for in these directories
-    modulesDirectories: [
-      "node_modules",
-      path.resolve(__dirname, "node_modules"),
-      path.resolve(__dirname, 'material-ui/src'),
-      path.resolve(__dirname, 'src/frontend/components/raw-code'),
-      path.resolve(__dirname, 'src/app/components/markdown')
-    ]
+    extensions: ["", ".js", ".jsx"]
+    //node_modules: ["web_modules", "node_modules"]  (Default Settings)
   },
-  //Configuration for dev server
-  devServer: {
-    contentBase: 'src/www',
+  //Server Configuration options
+  devServer:{
+    contentBase: 'src/www',  //Relative directory for base of server
     devtool: 'eval',
-    hot: true,
+    hot: true,        //Live-reload
     inline: true,
-    port: 3000
+    port: 3000        //Port Number
   },
   devtool: 'eval',
-  //Output file config
   output: {
     path: buildPath,    //Path of output file
-    filename: 'app.js'  //Name of output file
+    filename: 'app.js'
   },
   plugins: [
-    //Used to include index.html in build folder
-    new HtmlWebpackPlugin({
-        inject: false,
-        template: path.join(__dirname, '/src/www/index.html')
-    }),
-    //Allows for sync with browser while developing (like BorwserSync)
+    //Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
-    //Allows error warninggs but does not stop compiling. Will remove when eslint is added
-    new webpack.NoErrorsPlugin()
+    //Allows error warnings but does not stop compiling. Will remove when eslint is added
+    new webpack.NoErrorsPlugin(),
+    //Moves files
+    new TransferWebpackPlugin([
+      {from: 'www'}
+    ], path.resolve(__dirname, "src"))
   ],
   module: {
-        //eslint loader
-        preLoaders: [
-          {
-            test: /\.(js|jsx)$/,
-            loader: 'eslint-loader',
-            include: [path.resolve(__dirname, "src")],
-            exclude: [path.resolve(__dirname, "src/svg-icons"), path.resolve(__dirname, "src/utils/modernizr.custom.js")]
-          }
-        ],
-        //Allow loading of non-es5 js files.
-        loaders: [
-          {
-            test: /\.jsx$/, //All .js and .jsx files
-            loaders: ['react-hot','babel-loader?optional=runtime&stage=0'], //react-hot is like browser sync and babel loads jsx and es6-7
-            include: [__dirname, path.resolve(__dirname, 'src')], //include these files
-            exclude: [nodeModulesPath]  //exclude node_modules so that they are not all compiled
-          },
-          {
-            test:/\.txt$/,
-            loader: 'raw-loader',
-            include: path.resolve(__dirname, 'src/frontend/components/raw-code')
-          },
-          {
-            test: /\.js$/, //All .js and .jsx files
-            loader:'babel-loader?optional=runtime&stage=0', //react-hot is like browser sync and babel loads jsx and es6-7
-            include: [__dirname, path.resolve(__dirname, 'src')], //include these files
-            exclude: [nodeModulesPath]  //exclude node_modules so that they are not all compiled
-          },
-        ]
+    //Loaders to interpret non-vanilla javascript code as well as most other extensions including images and text.
+    preLoaders: [
+      {
+        //Eslint loader
+        test: /\.(js|jsx)$/,
+        loader: 'eslint-loader',
+        include: [path.resolve(__dirname, "src/frontend")],
+        exclude: [nodeModulesPath]
+      },
+    ],
+    loaders: [
+      {
+        //React-hot loader and
+        test: /\.(js|jsx)$/,  //All .js and .jsx files
+        loaders: ['react-hot','babel-loader?optional=runtime&stage=0'], //react-hot is like browser sync and babel loads jsx and es6-7
+        exclude: [nodeModulesPath]
+      }
+    ]
   },
+  //eslint config options. Part of the eslint-loader package
   eslint: {
     configFile: '.eslintrc'
-  }
+  },
 };
-
-module.exports = config;
